@@ -2,6 +2,7 @@ import { TodoApiService } from './../api/todo.api.service';
 import { Injectable } from '@angular/core';
 import { ToDoItem } from '../model/ToDoItem';
 import { TodoStoreService } from './todo-store.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,6 @@ import { TodoStoreService } from './todo-store.service';
 export class TodoService {
 
   public errorMessage?: string;
-
   private _selectedTodoItem: ToDoItem = {} as ToDoItem;
   private _updatingTodoItem: ToDoItem = {} as ToDoItem;
   constructor(private todoStore: TodoStoreService, private todoApi: TodoApiService) {
@@ -19,8 +19,15 @@ export class TodoService {
     return this.todoStore.getAll();
   }
 
-  findById(id: number): ToDoItem {
-    return this.todoStore.findById(id);
+  public findById(id: number): ToDoItem{
+    let foundToDoItem: ToDoItem = {} as ToDoItem;
+    this.todoApi.findById(id).subscribe({
+      next: response => { foundToDoItem = response},
+      error: error => {
+        this.errorMessage = error.errorMessage
+      }
+    });
+    return foundToDoItem;
   }
 
   public create(todoItem: ToDoItem): void {

@@ -8,16 +8,18 @@ import { ToDoItem } from '../model/ToDoItem';
 })
 export class TodoApiService {
 
-
-
   constructor(private http: HttpClient) { }
 
   public create(todoItem: ToDoItem): Observable<void> {
-    return this.http.post<void>('https://localhost:5001/ToDos',todoItem)
+    return this.http.post<void>('https://localhost:5001/ToDos', todoItem);
   }
 
   public delete(id: number): Observable<any> {
     return this.http.delete('https://localhost:5001/ToDos/'+String(id));
+  }
+
+  public findById(id: number): Observable<ToDoItem> {
+    return this.http.get<ToDoItem>('https://localhost:5001/ToDos/' + String(id));
   }
 
 }
