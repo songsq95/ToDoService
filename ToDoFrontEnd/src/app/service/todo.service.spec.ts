@@ -4,6 +4,7 @@ import { ToDoItem } from './../model/ToDoItem';
 import { TestBed } from '@angular/core/testing';
 import { TodoStoreService } from './todo-store.service';
 import { TodoService } from './todo.service';
+import { throwError } from 'rxjs';
 
 describe('TodoService', () => {
 
@@ -34,5 +35,17 @@ describe('TodoService', () => {
     service.create(toDoItem);
     // then
     expect(httpClientSpy.post).toHaveBeenCalledWith('https://635fc244ca0fe3c21aa3d012.mockapi.io/api/todos', toDoItem);
+  });
+
+  it('should response error when create fail', () => {
+    // given
+    const toDoItem = new ToDoItem(9, 'title', 'description', true);
+    httpClientSpy.post.and.returnValue(throwError(() => ({
+      errorMessage: 'create failed'
+    })));
+    // when
+    service.create(toDoItem);
+    // then
+    expect(service.errorMessage).toEqual('create failed')
   });
 });
