@@ -59,4 +59,16 @@ describe('TodoService', () => {
     // then
     expect(httpClientSpy.delete).toHaveBeenCalledWith('https://localhost:5001/ToDos/'+String(id));
   });
+
+  it('should response error when delete fail', () => {
+    // given
+    const id = 1;
+    httpClientSpy.delete.and.returnValue(throwError(() => ({
+      errorMessage: 'create failed'
+    })));
+    // when
+    service.delete(id);
+    // then
+    expect(service.errorMessage).toEqual('create failed')
+  });
 });
