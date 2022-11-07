@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class TodoApiServiceService {
+export class TodoApiService {
 
   constructor(private http: HttpClient) { }
 }
