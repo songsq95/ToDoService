@@ -6,6 +6,7 @@ import { TodoStoreService } from './todo-store.service';
   providedIn: 'root'
 })
 export class TodoService {
+  
 
   private _selectedTodoItem: ToDoItem = {} as ToDoItem;
   private _updatingTodoItem: ToDoItem = {} as ToDoItem;
@@ -14,6 +15,10 @@ export class TodoService {
 
   public get todoItems(): Array<ToDoItem> {
     return this.todoStore.getAll();
+  }
+
+  findById(id: number): ToDoItem {
+    return this.todoStore.findById(id);
   }
 
   public create(todoItem: ToDoItem): void {
@@ -40,7 +45,7 @@ export class TodoService {
     return this._selectedTodoItem;
   }
 
-  public currentUpdatingTodoItem(): ToDoItem {
-    return this._updatingTodoItem;
-  }
+  // public currentUpdatingTodoItem(): ToDoItem {
+  //  return this._updatingTodoItem;
+  // }
 }
