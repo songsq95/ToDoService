@@ -64,12 +64,12 @@ describe('TodoService', () => {
     // given
     const id = 1;
     httpClientSpy.delete.and.returnValue(throwError(() => ({
-      errorMessage: 'create failed'
+      errorMessage: 'delete failed'
     })));
     // when
     service.delete(id);
     // then
-    expect(service.errorMessage).toEqual('create failed')
+    expect(service.errorMessage).toEqual('delete failed')
   });
 
   it('should show todoItem detail via mockHttp get', () => {
@@ -80,6 +80,18 @@ describe('TodoService', () => {
     service.findById(id);
     // then
     expect(httpClientSpy.get).toHaveBeenCalledWith('https://localhost:5001/ToDos/'+String(id));
+  });
+
+  it('should response error when find by id fail', () => {
+    // given
+    const id = 1;
+    httpClientSpy.get.and.returnValue(throwError(() => ({
+      errorMessage: 'find by id failed'
+    })));
+    // when
+    service.findById(id);
+    // then
+    expect(service.errorMessage).toEqual('find by id failed')
   });
 
 
