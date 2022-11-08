@@ -57,7 +57,7 @@ describe('TodoService', () => {
     // when
     service.delete(id);
     // then
-    expect(httpClientSpy.delete).toHaveBeenCalledWith('https://localhost:5001/ToDos/'+String(id));
+    expect(httpClientSpy.delete).toHaveBeenCalledWith('https://localhost:5001/ToDos?id='+String(id));
   });
 
   it('should response error when delete fail', () => {

@@ -15,7 +15,7 @@ export class TodoApiService {
   }
 
   public delete(id: number): Observable<any> {
-    return this.http.delete('https://localhost:5001/ToDos/'+String(id));
+    return this.http.delete('https://localhost:5001/ToDos?id='+String(id));
   }
 
   public findById(id: number): Observable<ToDoItem> {
